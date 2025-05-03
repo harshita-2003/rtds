@@ -6,7 +6,8 @@ A simple full-stack app where users can view GPU best optimized according to the
 
 [Watch Demo Video](https://drive.google.com/file/d/17bPsh8IrC9e7O5ennx9rPpc43G5SkPzb/view)
 
-WORD DOC 
+## WORD DOC 
+
 [GPU Cost Optimizer Documentation(1).docx](https://github.com/user-attachments/files/20023600/GPU.Cost.Optimizer.Documentation.1.docx)
 
 
