@@ -19,6 +19,8 @@ function Test() {
   const [error, setError] = useState(null);
   const [submitAttempted, setSubmitAttempted] = useState(false);
   const [showComparison, setShowComparison] = useState(false);
+  const [requestSubmitted, setRequestSubmitted] = useState(false);
+
 
   // Configure axios
   useEffect(() => {
@@ -250,7 +252,6 @@ function Test() {
                 )}
               </div>
 
-              {/* min ram */}
               {/* Minimum RAM */}
               <div className="relative group">
                 <label className="block text-sm font-medium text-gray-300 mb-2">
@@ -385,14 +386,35 @@ function Test() {
                         </div>
                       </div>
 
-                      {/* <div className="mt-4 bg-gray-800/50 rounded-lg p-3 border border-gray-700">
-                        <p className="text-sm text-gray-300">{gpu.explanation}</p>
-                      </div> */}
 
                     </div>
                   ))}
+                  
+                  <div className={'border rounded-xl p-5 transition-all duration-300 bg-gray-700/30 border-gray-600 hover:border-blue-500'}>
+                    <div className="bg-gray-700 p-6 rounded-lg shadow-lg">
+                      <h3 className="text-xl font-semibold text-white">NVIDIA A100</h3>
+                      <p className="text-gray-300 mt-2">Specs: 40GB HBM2, PCIe Gen4</p>
+                      <p className="text-gray-300 mt-2">Price: N/A</p>
+
+                      {!requestSubmitted && (
+                        <button
+                          onClick={() => setRequestSubmitted(true)}
+                          className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+                        >
+                          Request
+                        </button>
+                      )}
+                    </div>
+
+                    {requestSubmitted && (
+                      <div className="mt-4 bg-green-700 text-white p-4 rounded-lg shadow-md">
+                        Your request has been submitted. We’ll notify you when this GPU becomes available.
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
+
             ) : (
               <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
                 <div className="bg-gray-700/50 rounded-full p-4 mb-4">
