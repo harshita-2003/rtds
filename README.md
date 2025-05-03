@@ -2,6 +2,11 @@
 
 A simple full-stack app where users can view GPU cards and request unavailable ones. Once a request is made, a confirmation message is shown.
 
+## 📹 Video Demonstration
+
+[Watch Demo Video](https://drive.google.com/file/d/17bPsh8IrC9e7O5ennx9rPpc43G5SkPzb/view)
+
+
 ### 🧩 Tech Stack
 
 * **Frontend**: React + Tailwind CSS
