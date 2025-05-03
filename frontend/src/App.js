@@ -1,16 +1,31 @@
-import "./App.css";
-import Test from "./Test";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HeroSection from './components/HeroSection';
+import FeaturesSection from './components/FeaturesSection';
+import HowItWorksSection from './components/HowItWorksSection';
+import ValueProposition from './components/ValueProposition';
+import Footer from './components/Footer';
+import Test from './Test';
 
-function App() {
+const App = () => {
   return (
-    // <main class="flex justify-center gap-4 flex-col min-h-screen">
-    //   <h1 class="text-3xl text-center font-bold underline">React & Tailwind CSS Starter Pack</h1>
-    //   <p class="text-center text-xl">This is a starter pack for React & Tailwind CSS projects.</p>
-    //   <img src="https://bit.ly/3wsmzTy" alt="meme" class="mx-auto" />
-    // </main>
-
-    <Test />
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <HeroSection />
+           
+              <HowItWorksSection />
+              <ValueProposition />
+              <Footer />
+            </>
+          }
+        />
+        <Route path="/test" element={<Test />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
