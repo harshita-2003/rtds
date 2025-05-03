@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import axios from 'axios';
+// import fs from 'fs/promises'; 
 
 const app = express();
 const PORT = 8080;
@@ -21,8 +22,10 @@ function recommendInstances(instances, input) {
     .map(i => ({
       ...i,
       explanation: `Recommended for ${task_type} on ${model_type} models. Handles ~${dataset_size_gb}GB data.`,
-    }));
+    }))
+    .slice(0, 5)
 }
+
 
 app.post('/recommendations', async (req, res) => {
   const input = req.body;
@@ -48,6 +51,26 @@ app.post('/recommendations', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch GPU instances.' });
   }
 });
+
+
+// app.post('/recommendations', async (req, res) => {
+//   const input = req.body;
+
+//   try {
+//     const rawData = await fs.readFile('./mockData.json', 'utf-8');
+//     const parsedData = JSON.parse(rawData);
+//     const allInstances = parsedData.data;
+//     console.log(allInstances);
+
+//     const recommended = recommendInstances(allInstances, input);
+//     res.json(recommended);
+//   } catch (err) {
+//     console.error('Mock data error:', err);
+//     res.status(500).json({ error: 'Failed to load mock GPU data.' });
+//   }
+// });
+
+
 
 app.get('/', (req, res) => {
   res.send('GPU Optimizer API is live!');
