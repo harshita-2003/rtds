@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HeroSection from './components/HeroSection';
-import FeaturesSection from './components/FeaturesSection';
 import HowItWorksSection from './components/HowItWorksSection';
 import ValueProposition from './components/ValueProposition';
 import Footer from './components/Footer';
@@ -15,7 +14,6 @@ const App = () => {
           element={
             <>
               <HeroSection />
-           
               <HowItWorksSection />
               <ValueProposition />
               <Footer />
