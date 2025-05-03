@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import ComparisonModal from './ComparisonModal';
 
 function Test() {
   const [form, setForm] = useState({
@@ -8,12 +9,16 @@ function Test() {
     task_type: '',
     budget: '',
     region: '',
+    min_ram_gb: '',       
+    min_vcpus: '',
+
   });
 
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [submitAttempted, setSubmitAttempted] = useState(false);
+  const [showComparison, setShowComparison] = useState(false);
 
   // Configure axios
   useEffect(() => {
@@ -55,7 +60,9 @@ function Test() {
       const formData = {
         ...form,
         dataset_size_gb: parseFloat(form.dataset_size_gb),
-        budget: form.budget ? parseFloat(form.budget) : undefined
+        budget: form.budget ? parseFloat(form.budget) : undefined,
+        min_ram_gb: form.min_ram_gb ? parseFloat(form.min_ram_gb) : undefined,
+        min_vcpus: form.min_vcpus ? parseInt(form.min_vcpus, 10) : undefined,
       };
       
       const res = await axios.post('http://localhost:8080/recommendations', formData);
@@ -110,7 +117,7 @@ function Test() {
               {/* Model Type */}
               <div className="relative group">
                 <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Model Type <span className="text-red-400">*</span>
+                  Purpose of Usage <span className="text-red-400">*</span>
                 </label>
                 <div className="relative">
                   <input
@@ -243,6 +250,46 @@ function Test() {
                 )}
               </div>
 
+              {/* min ram */}
+              {/* Minimum RAM */}
+              <div className="relative group">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Minimum RAM (GB) (optional)
+                </label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    name="min_ram_gb"
+                    placeholder="e.g. 8, 16, 32"
+                    value={form.min_ram_gb}
+                    onChange={handleChange}
+                    min="0"
+                    step="1"
+                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 group-hover:border-blue-400"
+                  />
+                </div>
+              </div>
+
+              {/* Minimum vCPUs */}
+              <div className="relative group">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Minimum vCPUs (optional)
+                </label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    name="min_vcpus"
+                    placeholder="e.g. 2, 4, 8"
+                    value={form.min_vcpus}
+                    onChange={handleChange}
+                    min="0"
+                    step="1"
+                    className="w-full bg-gray-700/50 border border-gray-600 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 group-hover:border-blue-400"
+                  />
+                </div>
+              </div>
+
+
               {error && (
                 <div className="p-4 bg-red-900/30 border border-red-700 rounded-lg flex items-start">
                   <svg className="w-5 h-5 text-red-400 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -288,12 +335,12 @@ function Test() {
               <div className="space-y-4">
                 <div className="bg-blue-900/20 border border-blue-800 rounded-lg p-4 mb-4">
                   <p className="text-blue-300">
-                    Found <span className="font-bold text-white">{results.length}</span> matching GPU configurations
+                    Found top <span className="font-bold text-white">{results.length}</span> matching GPU configurations
                     {form.budget && <span> within your ${form.budget}/hour budget</span>}
                   </p>
                 </div>
 
-                <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2">
+                <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2">
                   {results.map((gpu, idx) => (
                     <div 
                       key={idx}
@@ -338,19 +385,16 @@ function Test() {
                         </div>
                       </div>
 
-                      <div className="mt-4 bg-gray-800/50 rounded-lg p-3 border border-gray-700">
+                      {/* <div className="mt-4 bg-gray-800/50 rounded-lg p-3 border border-gray-700">
                         <p className="text-sm text-gray-300">{gpu.explanation}</p>
-                      </div>
+                      </div> */}
 
-                      {/* <button className="mt-4 w-full py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-sm font-medium transition-colors duration-200">
-                        REQUEST {when gpu not available}
-                      </button> */}
                     </div>
                   ))}
                 </div>
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center h-full min-h-[300px] text-center">
+              <div className="flex flex-col items-center justify-center min-h-[400px] text-center">
                 <div className="bg-gray-700/50 rounded-full p-4 mb-4">
                   <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
@@ -362,9 +406,27 @@ function Test() {
                 </p>
               </div>
             )}
+
+            <button 
+              onClick={() => setShowComparison(true)}
+              disabled={results.length === 0}
+              className={` w-full py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
+                results.length === 0 
+                  ? 'bg-gray-700 text-gray-500'
+                  : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 shadow-lg hover:shadow-blue-500/20 text-white'
+              }`}
+            >
+              Compare Prices
+            </button>
+
           </div>
         </div>
       </div>
+      <ComparisonModal 
+        isOpen={showComparison} 
+        onClose={() => setShowComparison(false)} 
+        instances={results} 
+      />
     </div>
   );
 }
