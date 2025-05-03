@@ -30,7 +30,6 @@ gpu-request-app/
 
 ```bash
 git clone https://github.com/your-username/gpu-request-app.git
-cd gpu-request-app
 ```
 
 ---
@@ -40,15 +39,16 @@ cd gpu-request-app
 ```bash
 cd frontend
 npm install
-npm run dev
+npm start
 ```
 
-> Visit: `http://localhost:3000` (or whatever Vite port is shown)
+> Visit: `http://localhost:3000`
 
 ### 🛠 Features:
 
-* Single static GPU card display
+* Single static GPU recommendation display
 * "Request" button reveals confirmation message
+* Table comparison of the GPU's based on best hour, spot prices
 
 ---
 
