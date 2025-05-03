@@ -1,0 +1,78 @@
+Here’s a clean and minimal `README.md` file for your project with both **frontend** and **backend** instructions.
+
+---
+
+## 🔧 GPU Request System
+
+A simple full-stack app where users can view GPU cards and request unavailable ones. Once a request is made, a confirmation message is shown.
+
+### 🧩 Tech Stack
+
+* **Frontend**: React + Tailwind CSS
+* **Backend**: Node.js + Express (optional, for handling GPU request logs or future extensions)
+
+---
+
+## 📁 Folder Structure
+
+```
+gpu-request-app/
+├── frontend/          # React + Tailwind app
+└── backend/           # Express server (placeholder for future API integration)
+```
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/your-username/gpu-request-app.git
+cd gpu-request-app
+```
+
+---
+
+## 📦 Frontend Setup (React + Tailwind)
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+> Visit: `http://localhost:3000` (or whatever Vite port is shown)
+
+### 🛠 Features:
+
+* Single static GPU card display
+* "Request" button reveals confirmation message
+
+---
+
+## 🛠 Backend Setup (Node.js + Express)
+
+> *Note: This is optional unless you're planning to handle requests via API.*
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+> Visit: `http://localhost:8080`
+
+Basic Express setup with placeholder routes for logging GPU requests.
+
+```
+PORT=8080
+```
+
+---
+
+## ✅ Future Improvements
+
+* Save requests to a database (MongoDB)
+* User authentication
+* Admin dashboard for managing requests
