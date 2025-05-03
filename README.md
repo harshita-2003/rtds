@@ -1,6 +1,6 @@
-## 🔧 GPU Request System
+## 🔧 GPU Recommendation System
 
-A simple full-stack app where users can view GPU cards and request unavailable ones. Once a request is made, a confirmation message is shown.
+A simple full-stack app where users can view GPU best optimized according to the user inputs and request unavailable ones. Once a request is made, a confirmation message is shown.
 
 ## 📹 Video Demonstration
 
