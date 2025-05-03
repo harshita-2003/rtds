@@ -1,7 +1,3 @@
-Here’s a clean and minimal `README.md` file for your project with both **frontend** and **backend** instructions.
-
----
-
 ## 🔧 GPU Request System
 
 A simple full-stack app where users can view GPU cards and request unavailable ones. Once a request is made, a confirmation message is shown.
